@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KSPWheel
 {
@@ -40,7 +41,7 @@ namespace KSPWheel
         public string retractedEffect = string.Empty;
 
         [KSPField]
-        public string actionName = "Gear";
+        public string actionName = LocalizationCache.str_Action_Gear; // "Gear"
 
         [KSPField]
         public bool updateDragCubes = true;
@@ -94,14 +95,14 @@ namespace KSPWheel
             }
         }
 
-        [KSPAction("Toggle Gear", KSPActionGroup.Gear)]
+        [KSPAction("#KSPWheel_Action_ToggleGear", KSPActionGroup.Gear)] // "Toggle Gear"
         public void toggleGearAction(KSPActionParam param)
         {
             if (param.type == KSPActionType.Activate) { deploy(); }
             else if (param.type == KSPActionType.Deactivate) { retract(); }
         }
 
-        [KSPEvent(guiName = "Toggle Gear", guiActive = true, guiActiveEditor = true)]
+        [KSPEvent(guiName = "#KSPWheel_Action_ToggleGear", guiActive = true, guiActiveEditor = true)] // Toggle Gear
         public void toggleGearEvent()
         {
             this.symmetryUpdate(m =>
@@ -173,8 +174,8 @@ namespace KSPWheel
         public override void OnStart(StartState state)
         {
             base.OnStart(state);
-            Events[nameof(toggleGearEvent)].guiName = "Toggle " + actionName + " Deployment";
-            Actions[nameof(toggleGearAction)].guiName = "Toggle " + actionName + " Deployment";
+            Events[nameof(toggleGearEvent)].guiName = Localizer.Format("#KSPWheel_Action_ToggleGuiName", actionName); // "Toggle " + actionName + " Deployment"
+            Actions[nameof(toggleGearAction)].guiName = Localizer.Format("#KSPWheel_Action_ToggleGuiName", actionName); // "Toggle " + actionName + " Deployment"
             Events[nameof(toggleGearEvent)].guiActiveUncommand = true;
             Events[nameof(toggleGearEvent)].guiActiveUnfocused = useFromEVA;
             Events[nameof(toggleGearEvent)].externalToEVAOnly = useFromEVA && useFromEVAOnly;

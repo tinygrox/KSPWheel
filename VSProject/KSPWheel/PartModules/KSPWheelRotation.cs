@@ -16,8 +16,8 @@ namespace KSPWheel
         [KSPField]
         public Vector3 rotationAxis = Vector3.left;
 
-        [KSPField(guiName = "Display Fwd Rotation", guiActive = false, guiActiveEditor = true, isPersistant = false),
-         UI_Toggle(enabledText = "True", disabledText = "False", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
+        [KSPField(guiName = "#KSPWheel_editorRotation", guiActive = false, guiActiveEditor = true, isPersistant = false), // Display Fwd Rotation
+         UI_Toggle(enabledText = "#autoLOC_8004438", disabledText = "#autoLOC_8004439", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)] // True | False
         public bool editorRotation = false;
 
         private Transform wheelMeshTransform;

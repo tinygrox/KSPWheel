@@ -61,7 +61,7 @@ namespace KSPWheel
         /// <summary>
         /// The user-configurable extension limit.
         /// </summary>
-        [KSPField(guiName = "Extension Limit", guiActive = true, guiActiveEditor = true, isPersistant = true, guiUnits = "%"),
+        [KSPField(guiName = "#KSPWheel_ExtensionLimit", guiActive = true, guiActiveEditor = true, isPersistant = true, guiUnits = "%"), // Extension Limit
          UI_FloatRange(minValue = 0f, maxValue = 100f, stepIncrement = 0.5f)]
         public float currentValue = 0f;
 

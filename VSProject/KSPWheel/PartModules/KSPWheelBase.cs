@@ -58,7 +58,7 @@ namespace KSPWheel
         [KSPField]
         public float frictionMult = 1f;
 
-        [KSPField(guiName = "Friction Multiplier", guiActive = true, guiActiveEditor = true, isPersistant = true, guiFormat = "F3"),
+        [KSPField(guiName = "#KSPWheel_FrictionMultiplier", guiActive = true, guiActiveEditor = true, isPersistant = true, guiFormat = "F3"), // Friction Multiplier
          UI_FloatRange(minValue = 0f, maxValue = 4f, suppressEditorShipModified = true, stepIncrement = 0.05f)]
         public float frictionControl = 1f;
 
@@ -68,8 +68,8 @@ namespace KSPWheel
         [KSPField]
         public float rotationalResistance = 0f;
 
-        [KSPField(guiName = "Show Wheel Controls", guiActive = true, guiActiveEditor = true, isPersistant = true),
-         UI_Toggle(affectSymCounterparts = UI_Scene.All, controlEnabled = true, disabledText = "Hidden", enabledText = "Shown", requireFullControl = false, suppressEditorShipModified = true, scene = UI_Scene.All)]
+        [KSPField(guiName = "#KSPWheel_ShowWheelControls", guiActive = true, guiActiveEditor = true, isPersistant = true), // Show Wheel Controls
+         UI_Toggle(affectSymCounterparts = UI_Scene.All, controlEnabled = true, disabledText = "#KSPWheel_HiddenWheelControls", enabledText = "#KSPWheel_ShownWheelControls", requireFullControl = false, suppressEditorShipModified = true, scene = UI_Scene.All)] // "Hidden"Shown
         public bool showControls = true;
 
         [KSPField]
@@ -78,7 +78,7 @@ namespace KSPWheel
         [KSPField]
         public float maxLoadRating = 5f;
 
-        [KSPField(guiName = "Spring Rating", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_SpringRating", guiActive = true, guiActiveEditor = true, isPersistant = true), // Spring Rating
          UI_FloatRange(minValue = 0.2f, maxValue = 0.8f, stepIncrement = 0.05f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float springRating = 0.5f;
 
@@ -88,12 +88,12 @@ namespace KSPWheel
         [KSPField]
         public float maxSpringRating = 0.8f;
 
-        [KSPField(guiName = "Damp Ratio", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_DampRatio", guiActive = true, guiActiveEditor = true, isPersistant = true), // Damp Ratio
         UI_FloatRange(minValue = 0.35f, maxValue = 1, stepIncrement = 0.025f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float dampRatio = 0.65f;
 
-        [KSPField(guiName = "Wheel Group", guiActive = true, guiActiveEditor = true, isPersistant = true),
-         UI_ChooseOption(options =new string[] { "0","1","2","3","4","5","6","7","8","9","10"}, display = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, suppressEditorShipModified = true)]
+        [KSPField(guiName = "#KSPWheel_WheelGroup", guiActive = true, guiActiveEditor = true, isPersistant = true), // Wheel Group
+         UI_ChooseOption(options = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, display = new string[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }, suppressEditorShipModified = true)]
         public string wheelGroup = "0";
 
         [KSPField]
@@ -120,7 +120,7 @@ namespace KSPWheel
         [KSPField]
         public float maxScale = 10f;
 
-        [KSPField(guiName = "Scale", guiActive = false, guiActiveEditor = true, isPersistant = true, guiUnits = "x"),
+        [KSPField(guiName = "#KSPWheel_Scale", guiActive = false, guiActiveEditor = true, isPersistant = true, guiUnits = "x"), // Scale
          UI_FloatEdit(suppressEditorShipModified = true, minValue = 0.1f, maxValue = 10f, incrementLarge = 1f, incrementSmall = 0.25f, incrementSlide = 0.01f, sigFigs = 2)]
         public float scale = 1f;
 
@@ -139,7 +139,7 @@ namespace KSPWheel
         /// <summary>
         /// The coefficient of the wheel colliders spring force that will be used for anti-roll-bar simulation
         /// </summary>
-        [KSPField(guiName = "Anti Roll", guiActive = true, guiActiveEditor = true, isPersistant = true, guiFormat = "F2"),
+        [KSPField(guiName = "#KSPWheel_AntiRoll", guiActive = true, guiActiveEditor = true, isPersistant = true, guiFormat = "F2"), // Anti Roll
          UI_FloatRange(minValue = 0f, maxValue = 1f, stepIncrement = 0.05f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.All)]
         public float antiRoll = 0f;
 
@@ -159,7 +159,7 @@ namespace KSPWheel
         /// Used for in-editor part information display.  Sets the title of the module to this (rather than KSPWheelBase)
         /// </summary>
         [KSPField]
-        public string wheelType = "Wheel";
+        public string wheelType = LocalizationCache.str_Wheel_ModuleTitle; // "Wheel"
 
         [KSPField]
         public bool showGUISpring = true;
@@ -738,7 +738,7 @@ namespace KSPWheel
 
         public string GetPrimaryField()
         {
-            return "Max Load: "+maxLoadRating;
+            return LocalizationCache.str_ModuleInfo_Load + " " + maxLoadRating; // "Max Load: "
         }
 
         public Callback<Rect> GetDrawModulePanelCallback()
@@ -748,8 +748,8 @@ namespace KSPWheel
 
         public override string GetInfo()
         {
-            String val = "Max Speed: " + maxSpeed + "\n";
-            val = val + "Max Load : " + maxLoadRating;
+            String val = LocalizationCache.str_ModuleInfo_MaxSpeed + " " + maxSpeed + "\n"; // Max Speed:
+            val = val + LocalizationCache.str_ModuleInfo_Load + " " + maxLoadRating; // Max Load :
             string moduleInfo = "";
             if (subModules != null)
             {
@@ -779,7 +779,7 @@ namespace KSPWheel
 
         private void updateSuspension()
         {
-            if (wheelData == null || wheelData[0].wheel==null)
+            if (wheelData == null || wheelData[0].wheel == null)
             {
                 return;
             }
@@ -789,7 +789,7 @@ namespace KSPWheel
                 return;
             }
             float g = (float)vessel.gravityForPos.magnitude;
-            if (vesselMass == prevVMass && prevG==g && !updateSpring)//only update spring stuff when vessel mass has changed
+            if (vesselMass == prevVMass && prevG == g && !updateSpring)//only update spring stuff when vessel mass has changed
             {
                 return;
             }
@@ -853,7 +853,7 @@ namespace KSPWheel
                 }
             }
 
-            if (HighLogic.LoadedSceneIsFlight && wheelData!=null)
+            if (HighLogic.LoadedSceneIsFlight && wheelData != null)
             {
                 len = wheelData.Length;
                 for (int i = 0; i < len; i++)
@@ -1135,7 +1135,7 @@ namespace KSPWheel
         public string getDebugInfo()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("Part: "+part.name);
+            sb.AppendLine("Part: " + part.name);
             sb.AppendLine("ID: " + part.craftID);
             sb.AppendLine("Wheels in part: " + wheelData.Length);
             sb.AppendLine("Spring: " + springRating);
@@ -1299,7 +1299,7 @@ namespace KSPWheel
 
             internal string saveData()
             {
-                string data = timeBoostFactor+",";
+                string data = timeBoostFactor + ",";
                 if (wheel != null)
                 {
                     data = data + wheel.rpm;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KSPWheel
 {
@@ -39,7 +40,7 @@ namespace KSPWheel
 
         private void drawControlGUI()
         {
-            windowRect = GUI.Window(id, windowRect, updateWindow, "Wheel Controls");
+            windowRect = GUI.Window(id, windowRect, updateWindow, LocalizationCache.str_GUItitle); // "Wheel Controls"
         }
 
         private void updateWindow(int id)
@@ -62,20 +63,20 @@ namespace KSPWheel
                 //wheel name, spring, damper, friction adjustment
                 GUILayout.BeginHorizontal();
                 baseModules[i].label = GUILayout.TextField(baseModules[i].label, GUILayout.Width(w4));//user-definable per-base-module label; merely to tell the parts/base-modules apart...
-                if (GUILayout.Button("Highlight", GUILayout.Width(w3)))
+                if (GUILayout.Button(LocalizationCache.str_GUIHighlight, GUILayout.Width(w3))) // "Highlight"
                 {
                     //TODO toggle highlighting of part
                 }
                 //TODO add group adjustment buttons
-                GUILayout.Label("Group: " + baseModules[i].wheelGroup, GUILayout.Width(w3));
-                GUILayout.Label("Spring", GUILayout.Width(w3));
+                GUILayout.Label(Localizer.Format("#KSPWheel_GUI_Group", baseModules[i].wheelGroup), GUILayout.Width(w3)); // "Group: " + baseModules[i].wheelGroup
+                GUILayout.Label(LocalizationCache.str_GUISpring, GUILayout.Width(w3)); // "Spring"
                 val = GUILayout.HorizontalSlider(baseModules[i].springRating, 0, 1, GUILayout.Width(w2));
                 if (val != baseModules[i].springRating)
                 {
                     baseModules[i].springRating = val;
                     baseModules[i].onLoadUpdated(null, null);
                 }
-                GUILayout.Label("Damp Ratio", GUILayout.Width(w3));
+                GUILayout.Label(LocalizationCache.str_GUI_DampRatio, GUILayout.Width(w3)); // "Damp Ratio"
                 val = GUILayout.HorizontalSlider(baseModules[i].dampRatio, 0.35f, 1.0f, GUILayout.Width(w2));
                 if (val != baseModules[i].dampRatio)
                 {
@@ -121,7 +122,7 @@ namespace KSPWheel
             GUILayout.EndScrollView();
 
             //close button at the bottom of the window, below the scroll bar
-            if (GUILayout.Button("Close"))
+            if (GUILayout.Button(LocalizationCache.str_GUI_Close)) // "Close"
             {
                 KSPWheelLauncher.instance.controlGuiDisable();
             }
@@ -131,39 +132,39 @@ namespace KSPWheel
 
         private void drawSteeringControls(KSPWheelSteering steering)
         {
-            if (GUILayout.Button("Invert: " + steering.invertSteering))
+            if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_Invert", steering.invertSteering))) // "Invert: " + steering.invertSteering
             {
                 steering.invertSteering = !steering.invertSteering;
                 steering.onSteeringInverted(null, null);
             }
-            if (GUILayout.Button("Lock: " + steering.steeringLocked))
+            if (GUILayout.Button("Lock: " + steering.steeringLocked)) // 
             {
                 steering.steeringLocked = !steering.steeringLocked;
                 steering.onSteeringLocked(null, null);
             }
             float val = 0f;
-            GUILayout.Label("Low Speed Limit", GUILayout.Width(w3));
+            GUILayout.Label(LocalizationCache.str_GUI_LowSpeedLimit, GUILayout.Width(w3)); // "Low Speed Limit"
             val = GUILayout.HorizontalSlider(steering.steeringLimit, 0, 1, GUILayout.Width(w2));
             if (val != steering.steeringLimit)
             {
                 steering.steeringLimit = val;
                 steering.onSteeringLimitUpdated(null, null);
             }
-            GUILayout.Label("High Speed Limit", GUILayout.Width(w3));
+            GUILayout.Label(LocalizationCache.str_GUI_HighSpeedLimit, GUILayout.Width(w3)); // "High Speed Limit"
             val = GUILayout.HorizontalSlider(steering.steeringLimitHigh, 0, 1, GUILayout.Width(w2));
             if (val != steering.steeringLimitHigh)
             {
                 steering.steeringLimitHigh = val;
                 steering.onSteeringLimitUpdated(null, null);
             }
-            GUILayout.Label("Response Speed", GUILayout.Width(w3));
+            GUILayout.Label(LocalizationCache.str_GUI_ResponseSpeed, GUILayout.Width(w3)); // "Response Speed"
             val = GUILayout.HorizontalSlider(steering.steeringResponse, 0, 1, GUILayout.Width(w2));
             if (val != steering.steeringResponse)
             {
                 steering.steeringResponse = val;
                 steering.onSteeringLimitUpdated(null, null);
             }
-            GUILayout.Label("Bias", GUILayout.Width(w3));
+            GUILayout.Label(LocalizationCache.str_GUI_Bias, GUILayout.Width(w3)); // "Bias"
             val = GUILayout.HorizontalSlider(steering.steeringBias, 0, 1, GUILayout.Width(w2));
             if (val != steering.steeringBias)
             {
@@ -180,17 +181,17 @@ namespace KSPWheel
         private void drawMotorControls(KSPWheelMotor motor)
         {
             float val = 0f;
-            if (GUILayout.Button("Invert Motor: " + motor.invertMotor, GUILayout.Width(w3)))
+            if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_InvertMotor", motor.invertMotor), GUILayout.Width(w3))) // "Invert Motor: " + motor.invertMotor
             {
                 motor.invertMotor = !motor.invertMotor;
                 motor.onMotorInvert(null, null);
             }
-            if (GUILayout.Button("Lock Motor: " + motor.motorLocked, GUILayout.Width(w3)))
+            if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_LockMotor", motor.motorLocked), GUILayout.Width(w3))) // "Lock Motor: " + motor.motorLocked
             {
                 motor.motorLocked = !motor.motorLocked;
                 motor.onMotorLock(null, null);
             }
-            GUILayout.Label("Motor Limit", GUILayout.Width(w3));
+            GUILayout.Label(LocalizationCache.str_GUI_MotorLimit, GUILayout.Width(w3)); // "Motor Limit"
             val = GUILayout.HorizontalSlider(motor.motorOutput, 0, 100, GUILayout.Width(w2));
             if (val != motor.motorOutput)
             {
@@ -202,7 +203,7 @@ namespace KSPWheel
                 motor.gearRatio = Mathf.Clamp(motor.gearRatio - 1f, 1f, 20f);
                 motor.onGearUpdated(null, null);
             }
-            GUILayout.Label("Gear: " + motor.gearRatio);
+            GUILayout.Label(Localizer.Format("KSPWheel_GUI_GearRatio", motor.gearRatio)); // "Gear: " + motor.gearRatio
             if (GUILayout.Button(">", GUILayout.Width(w1)))
             {
                 motor.gearRatio = Mathf.Clamp(motor.gearRatio + 1f, 1f, 20f);
@@ -210,17 +211,17 @@ namespace KSPWheel
             }
             if (motor.tankSteering)
             {
-                if (GUILayout.Button("Lock Steering: " + motor.steeringLocked, GUILayout.Width(w3)))
+                if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_LockSteering", motor.steeringLocked), GUILayout.Width(w3))) // "Lock Steering: " + motor.steeringLocked
                 {
                     motor.steeringLocked = !motor.steeringLocked;
                     motor.onSteeringLock(null, null);
                 }
-                if (GUILayout.Button("Invert Steering: " + motor.invertSteering, GUILayout.Width(w3)))
+                if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_InvertSteering", motor.invertSteering), GUILayout.Width(w3))) // "Invert Steering: " + motor.invertSteering
                 {
                     motor.invertSteering = !motor.invertSteering;
                     motor.onSteeringInvert(null, null);
                 }
-                if (GUILayout.Button("Half Track Mode: " + motor.halfTrackSteering, GUILayout.Width(w3)))
+                if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_HalfTrackMode", motor.halfTrackSteering), GUILayout.Width(w3))) // "Half Track Mode: " + motor.halfTrackSteering
                 {
                     motor.halfTrackSteering = !motor.halfTrackSteering;
                     motor.onHalftrackToggle(null, null);

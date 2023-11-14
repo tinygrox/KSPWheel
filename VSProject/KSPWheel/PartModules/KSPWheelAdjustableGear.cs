@@ -114,28 +114,28 @@ namespace KSPWheel
         /// <summary>
         /// User-configured main strut angle in editor
         /// </summary>
-        [KSPField(guiName = "Strut Angle", guiActive = false, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_StrutAngle", guiActive = false, guiActiveEditor = true, isPersistant = true), // Strut Angle
          UI_FloatRange(minValue = -30f, maxValue = 30f, stepIncrement = 0.1f, suppressEditorShipModified = true)]
         public float strutRotation = 0f;
 
         /// <summary>
         /// User-set secondary angle for wheel container.  Determines the axis along which the suspension operates.
         /// </summary>
-        [KSPField(guiName = "Wheel Angle", guiActive = false, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_WheelAngle", guiActive = false, guiActiveEditor = true, isPersistant = true), // Wheel Angle
          UI_FloatRange(minValue = 0f, maxValue = 60f, stepIncrement = 0.1f, suppressEditorShipModified = true)]
         public float wheelRotation = 0f;
 
         /// <summary>
         /// User-set strut extension value.  Makes the landing leg longer or shorter.  Does not effect suspension travel range.
         /// </summary>
-        [KSPField(guiName = "Strut Extension", guiActive = false, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_StrutExtension", guiActive = false, guiActiveEditor = true, isPersistant = true), // Strut Extension
          UI_FloatRange(minValue = 0f, maxValue = 1, stepIncrement = 0.05f, suppressEditorShipModified = true)]
         public float strutExtension = 0f;
 
         /// <summary>
         /// Temporary testing compression value -- TODO remove once module is finished being developed
         /// </summary>
-        [KSPField(guiName = "Comp Test", guiActive = false, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_CompressionTest", guiActive = false, guiActiveEditor = true, isPersistant = true), // Comp Test
          UI_FloatRange(minValue = 0f, maxValue = 1f, stepIncrement = 0.05f, suppressEditorShipModified = true)]
         public float compTest = 1f;
 
@@ -228,7 +228,7 @@ namespace KSPWheel
 
         #region REGION - GUI methods
 
-        [KSPAction(actionGroup = KSPActionGroup.Gear, guiName = "Toggle Gear", requireFullControl = false)]
+        [KSPAction(actionGroup = KSPActionGroup.Gear, guiName = "#KSPWheel_ToggleGear", requireFullControl = false)] // Toggle Gear
         public void deployAction(KSPActionParam param)
         {
             if (param.type == KSPActionType.Activate)
@@ -277,7 +277,7 @@ namespace KSPWheel
             }
         }
 
-        [KSPEvent(guiName = "Toggle Gear", guiActive = true, guiActiveEditor = true)]
+        [KSPEvent(guiName = "#KSPWheel_ToggleGear", guiActive = true, guiActiveEditor = true)] // Toggle Gear
         public void deploy()
         {
             this.symmetryUpdate(m =>
@@ -320,7 +320,7 @@ namespace KSPWheel
             });
         }
 
-        [KSPEvent(guiName = "Flip Gear", guiActive = false, guiActiveEditor = true)]
+        [KSPEvent(guiName = "#KSPWheel_FlipGear", guiActive = false, guiActiveEditor = true)] // Flip Gear
         public void flip()
         {
             if (!allowFlip) { return; }
@@ -334,7 +334,7 @@ namespace KSPWheel
             });
         }
 
-        [KSPEvent(guiName = "Align Wheel To Ground", guiActive = false, guiActiveEditor = true)]
+        [KSPEvent(guiName = "#KSPWheel_AlignToGround", guiActive = false, guiActiveEditor = true)] // Align Wheel To Ground
         public void alignToGround()
         {
             Vector3 target = wheelContainer.position + Vector3.up;//one unit above the transform, in world-space in the editor
@@ -462,7 +462,7 @@ namespace KSPWheel
                 part.DragCubes.SetCubeWeight("Retracted", 1f - animationTime);
                 part.DragCubes.SetCubeWeight("Deployed", animationTime);
             }
-            if (diff > 0.1f || (prevDragUpdateState!=animationTime && (animationTime <= 0 || animationTime >= 1)))
+            if (diff > 0.1f || (prevDragUpdateState != animationTime && (animationTime <= 0 || animationTime >= 1)))
             {
                 part.SendMessage("GeometryPartModuleRebuildMeshData");
                 prevDragUpdateState = animationTime;
@@ -671,7 +671,7 @@ namespace KSPWheel
             Vector3 p2 = wheelContainer.position - wheelContainer.up * (HighLogic.LoadedSceneIsFlight ? (wheel.length - wheel.compressionDistance) : (wheel.length * (1 - compTest)));
             suspensionTarget.position = Vector3.Lerp(wheelContainer.position, p2, susTargetPos);
             suspensionTarget.rotation = wheelContainer.rotation;
-            suspensionTarget.RotateAround(suspensionContainer1.position, sideMode? suspensionContainer1.right: suspensionContainer1.up, mainStrutRot);
+            suspensionTarget.RotateAround(suspensionContainer1.position, sideMode ? suspensionContainer1.right : suspensionContainer1.up, mainStrutRot);
             suspensionTarget.Rotate(-bogeyAngleRot, 0, 0, Space.Self);
             suspensionRotator.rotation = suspensionTarget.rotation;
             suspensionRotator.Rotate(bogeyAngleRot, 0, 0, Space.Self);

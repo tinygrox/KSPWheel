@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KSPWheel
 {
@@ -22,30 +23,30 @@ namespace KSPWheel
         /// <summary>
         /// If true the steering will be locked to zero and will not respond to steering input.
         /// </summary>
-        [KSPField(guiName = "Steering Lock", guiActive = true, guiActiveEditor = true, isPersistant = true),
-         UI_Toggle(enabledText = "Locked", disabledText = "Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
+        [KSPField(guiName = "#KSPWheel_SteeringLock", guiActive = true, guiActiveEditor = true, isPersistant = true), // Steering Lock
+         UI_Toggle(enabledText = "#KSPWheel_SteeringLock_Locked", disabledText = "#KSPWheel_SteeringLock_Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)] // Locked | Free
         public bool steeringLocked;
 
         /// <summary>
         /// If true, steering will be inverted for this wheel.  Toggleable in editor and flight.  Persistent.
         /// </summary>
-        [KSPField(guiName = "Invert Steering", guiActive = true, guiActiveEditor = true, isPersistant = true),
-         UI_Toggle(enabledText = "Inverted", disabledText = "Normal", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
+        [KSPField(guiName = "#KSPWheel_InvertSteering", guiActive = true, guiActiveEditor = true, isPersistant = true), // Invert Steering
+         UI_Toggle(enabledText = "#autoLOC_6001077", disabledText = "#autoLOC_6001075", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)] // Inverted | Normal
         public bool invertSteering = false;
 
-        [KSPField(guiName = "Steering Limit Low", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_SteeringLimitLow", guiActive = true, guiActiveEditor = true, isPersistant = true), // Steering Limit Low
          UI_FloatRange(minValue = 0, maxValue = 1, stepIncrement = 0.01f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float steeringLimit = 1f;
 
-        [KSPField(guiName = "Steering Limit High", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_SteeringLimitHigh", guiActive = true, guiActiveEditor = true, isPersistant = true), // Steering Limit High
          UI_FloatRange(minValue = 0, maxValue = 1, stepIncrement = 0.01f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float steeringLimitHigh = 1f;
 
-        [KSPField(guiName = "Steering Response", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_SteeringResponse", guiActive = true, guiActiveEditor = true, isPersistant = true), // Steering Response
          UI_FloatRange(minValue = 0, maxValue = 1, stepIncrement = 0.01f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float steeringResponse = 1f;
 
-        [KSPField(guiName = "Steering Bias", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_SteeringBias", guiActive = true, guiActiveEditor = true, isPersistant = true), // Steering Bias
          UI_FloatRange(minValue = -1, maxValue = 1, stepIncrement = 0.025f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float steeringBias = 0f;
 
@@ -117,13 +118,13 @@ namespace KSPWheel
             });
         }
 
-        [KSPAction("Lock Steering")]
+        [KSPAction("#KSPWheel_Action_LockSteering")] // Lock Steering
         public void steeringLockAction(KSPActionParam param)
         {
             steeringLocked = !steeringLocked;
         }
 
-        [KSPAction("Invert Steering")]
+        [KSPAction("#KSPWheel_Action_InvertSteering")] // Invert Steering
         public void steeringInvertAction(KSPActionParam param)
         {
             invertSteering = !invertSteering;
@@ -142,7 +143,7 @@ namespace KSPWheel
 
         internal override string getModuleInfo()
         {
-            return "Max Steering Deflection: " + maxSteeringAngle + " degrees";
+            return Localizer.Format("#KSPWheel_SteeringModuleInfo", maxSteeringAngle); // "Max Steering Deflection: " + maxSteeringAngle + " degrees"
         }
 
         internal override void onUIControlsUpdated(bool show)

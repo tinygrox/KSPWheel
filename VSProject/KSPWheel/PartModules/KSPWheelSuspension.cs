@@ -43,8 +43,8 @@ namespace KSPWheel
         [KSPField]
         public bool allowLockedSuspension = false;
 
-        [KSPField(guiName = "Lock Suspension", guiActive = false, guiActiveEditor = false, isPersistant = true),
-         UI_Toggle(enabledText = "Locked", disabledText = "Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)]
+        [KSPField(guiName = "#KSPWheel_LockSuspension", guiActive = false, guiActiveEditor = false, isPersistant = true), // Lock Suspension
+         UI_Toggle(enabledText = "#KSPWheel_LockSuspension_Locked", disabledText = "#KSPWheel_LockSuspension_Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)] // Locked | Free
         public bool lockSuspension = false;
 
         public Vector3 defaultPos;
@@ -70,7 +70,7 @@ namespace KSPWheel
             }
         }
 
-        [KSPAction("Lock Suspension")]
+        [KSPAction("#KSPWheel_LockSuspension")] // Lock Suspension
         public void suspensionLockAction(KSPActionParam param)
         {
             suspensionLockChanged(null, null);

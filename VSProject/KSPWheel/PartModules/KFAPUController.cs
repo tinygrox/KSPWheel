@@ -21,27 +21,27 @@ namespace KSPWheel
         [KSPField]
         public string noFuelEffect = string.Empty;
 
-        [KSPField(guiName = "Throttle", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_throttle", guiActive = true, guiActiveEditor = true, isPersistant = true), // Throttle
          UI_FloatRange(minValue = 0, maxValue = 100, stepIncrement = 0.5f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float throttle = 0f;
 
-        [KSPField(guiName = "Target Charge Level", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_target", guiActive = true, guiActiveEditor = true, isPersistant = true), // Target Charge Level
          UI_FloatRange(minValue = 0, maxValue = 100, stepIncrement = 0.5f, suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
         public float target = 75f;
 
-        [KSPField(guiName = "Auto Throttle", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_autoThrottle", guiActive = true, guiActiveEditor = true, isPersistant = true), // Auto Throttle
          UI_Toggle(suppressEditorShipModified = true)]
         public bool autoThrottle = true;
 
-        [KSPField(guiName = "Link To Main Throttle", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_linkedThrottle", guiActive = true, guiActiveEditor = true, isPersistant = true), // Link To Main Throttle
          UI_Toggle(suppressEditorShipModified = true)]
         public bool linkedThrottle = false;
 
-        [KSPField(guiName = "Output", guiUnits = "EC/s", guiFormat = "F2", guiActive = true, guiActiveEditor = false)]
+        [KSPField(guiName = "#KSPWheel_energyOutput", guiUnits = "#KSPWheel_energyOutput_Units", guiFormat = "F2", guiActive = true, guiActiveEditor = false)] // Output | EC/s
         public float energyOutput = 0f;
 
-        [KSPField(guiName = "Mode", guiActive =true, guiActiveEditor = true, isPersistant = true)]
-        public string modeDisplay = "Closed Cycle";
+        [KSPField(guiName = "#KSPWheel_modeDisplay", guiActive = true, guiActiveEditor = true, isPersistant = true)] // Mode
+        public string modeDisplay = LocalizationCache.str_mode_Closed; // "Closed Cycle"
 
         [KSPField(isPersistant = true)]
         public bool closedMode = true;
@@ -51,7 +51,7 @@ namespace KSPWheel
         [SerializeField]
         private ResourceRatio openRatio;
 
-        [KSPEvent(guiName = "Toggle Mode", guiActive = true, guiActiveEditor = true)]
+        [KSPEvent(guiName = "#KSPWheel_toggleMode", guiActive = true, guiActiveEditor = true)] // Toggle Mode
         public void toggleMode()
         {
             this.closedMode = !this.closedMode;
@@ -123,7 +123,7 @@ namespace KSPWheel
 
         private void updateRecipe()
         {
-            modeDisplay = closedMode ? "Closed Cycle" : "Open Cycle";
+            modeDisplay = closedMode ? LocalizationCache.str_mode_Closed : LocalizationCache.str_mode_Open; // "Closed Cycle""Open Cycle"
             if (inputList.Count >= 3)
             {
                 inputList.RemoveAt(1);

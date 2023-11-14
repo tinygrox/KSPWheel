@@ -52,7 +52,7 @@ namespace KSPWheel
         public bool useDeployModule = false;
 
         [KSPField]
-        public string controlName = "User Control";
+        public string controlName = LocalizationCache.str_UserControl; // "User Control"
 
         /// <summary>
         /// The current value of the deployment, in the 0-1 range.

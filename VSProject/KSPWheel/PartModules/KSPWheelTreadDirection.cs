@@ -17,7 +17,7 @@ namespace KSPWheel
         public int standardDirection = 1;
 
         [KSPField(isPersistant = true, guiActiveEditor = true),
-         UI_Toggle(enabledText = "Inverted", disabledText = "Standard", suppressEditorShipModified =true, scene = UI_Scene.Editor, affectSymCounterparts = UI_Scene.None)]
+         UI_Toggle(enabledText = "Inverted", disabledText = "Standard", suppressEditorShipModified = true, scene = UI_Scene.Editor, affectSymCounterparts = UI_Scene.None)]
         public bool inverted;
 
         public override void OnStart(StartState state)

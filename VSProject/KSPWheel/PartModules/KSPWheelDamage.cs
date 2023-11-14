@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KSPWheel
 {
@@ -17,32 +18,32 @@ namespace KSPWheel
         [KSPField]
         public int repairLevel = 3;
 
-        [KSPField(guiName= "Max Safe Speed",guiActive = true, guiActiveEditor = true, guiUnits ="m/s", guiFormat = "F2")]
+        [KSPField(guiName = "#KSPWheel_MaxSafeSpeed", guiActive = true, guiActiveEditor = true, guiUnits = "m/s", guiFormat = "F2")] // Max Safe Speed
         public float maxSafeSpeed = 0f;
 
-        [KSPField(guiName = "Max Safe Load", guiActive = true, guiActiveEditor = true, guiUnits = "t", guiFormat = "F2")]
+        [KSPField(guiName = "#KSPWheel_MaxSafeLoad", guiActive = true, guiActiveEditor = true, guiUnits = "t", guiFormat = "F2")] // Max Safe Load
         public float maxSafeLoad = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "Wheel Status: ")]
-        public string displayStatus = "Operational";
+        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "#KSPWheel_WheelStatus")] // Wheel Status: 
+        public string displayStatus = LocalizationCache.str_WheelStatus_Operational; // "Operational"
 
-        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "Wheel Stress", guiFormat = "F2"),
+        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "#KSPWheel_WheelStress", guiFormat = "F2"), // Wheel Stress
          UI_ProgressBar(minValue = 0, maxValue = 1.5f, suppressEditorShipModified = true, scene = UI_Scene.Flight)]
         public float loadStress = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "Failure Time", guiFormat = "F2"),
+        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "#KSPWheel_FailureTime", guiFormat = "F2"), // Failure Time
          UI_ProgressBar(minValue = 0, maxValue = 1, suppressEditorShipModified = true, scene = UI_Scene.Flight)]
         public float stressTime = 0f;
 
-        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "Wheel Wear", guiFormat = "F2", isPersistant = true),
+        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "#KSPWheel_WheelWear", guiFormat = "F2", isPersistant = true), // Wheel Wear
          UI_ProgressBar(minValue = 0, maxValue = 1, suppressEditorShipModified = true, scene = UI_Scene.Flight)]
         public float wheelWear = 0f;
 
-        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "Motor Wear", guiFormat = "F2", isPersistant = true),
+        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "#KSPWheel_MotorWear", guiFormat = "F2", isPersistant = true), // Motor Wear
          UI_ProgressBar(minValue = 0, maxValue = 1, suppressEditorShipModified = true, scene = UI_Scene.Flight)]
         public float motorWear = 0f;
 
-        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "Suspension Wear", guiFormat = "F2", isPersistant = true),
+        [KSPField(guiActive = false, guiActiveEditor = false, guiName = "#KSPWheel_SuspensionWear", guiFormat = "F2", isPersistant = true), // Suspension Wear
          UI_ProgressBar(minValue = 0, maxValue = 1, suppressEditorShipModified = true, scene = UI_Scene.Flight)]
         public float suspensionWear = 0f;
 
@@ -58,11 +59,11 @@ namespace KSPWheel
 
         private KSPWheelMotor[] motors;
         
-        [KSPEvent(guiName = "Repair Wheel/Gear", guiActive = false, guiActiveEditor = false, guiActiveUnfocused = false, externalToEVAOnly = true, unfocusedRange = 8f)]
+        [KSPEvent(guiName = "#KSPWheel_RepairWheel", guiActive = false, guiActiveEditor = false, guiActiveUnfocused = false, externalToEVAOnly = true, unfocusedRange = 8f)] // Repair Wheel/Gear
         public void repairWheel()
         {
             KSPWheelWearType wearType = HighLogic.CurrentGame.Parameters.CustomParams<KSPWheelSettings>().wearType;
-            if (controller.wheelState == KSPWheelState.BROKEN || (controller.wheelState==KSPWheelState.DEPLOYED && wearType==KSPWheelWearType.ADVANCED))
+            if (controller.wheelState == KSPWheelState.BROKEN || (controller.wheelState == KSPWheelState.DEPLOYED && wearType == KSPWheelWearType.ADVANCED))
             {
                 MonoBehaviour.print("Repairing wheel!");
                 switch (wearType)
@@ -78,7 +79,7 @@ namespace KSPWheel
                     case KSPWheelWearType.ADVANCED:
                         if (HighLogic.CurrentGame.Parameters.CustomParams<GameParameters.AdvancedParams>().KerbalExperienceEnabled(HighLogic.CurrentGame.Mode) && FlightGlobals.ActiveVessel.VesselValues.RepairSkill.value < repairLevel)
                         {
-                            ScreenMessages.PostScreenMessage("Crew member has insufficient repair skill to fix this "+controller.wheelType.ToLower()+"\nLevel " + repairLevel + " or higher is required.");
+                            ScreenMessages.PostScreenMessage(Localizer.Format("#KSPWheel_RepairWheel_Message", controller.wheelType.ToLower(), repairLevel)); // "Crew member has insufficient repair skill to fix this " + controller.wheelType.ToLower() + "\nLevel " + repairLevel + " or higher is required."
                             return;
                         }
                         changeWheelState(KSPWheelState.DEPLOYED);
@@ -222,8 +223,8 @@ namespace KSPWheel
             // -- SIMPLE MODE BREAKAGE HANDLING --
             if (stressTime >= 1.0f)
             {
-                MonoBehaviour.print("Wheel broke from overstressing! load: " + load + " max: " + maxSafeLoad+" speed: "+speed+" maxSpeed: "+maxSafeSpeed);
-                ScreenMessages.PostScreenMessage("<color=orange><b>[" + this.part + "]:</b> Broke from overstressing.</color>", 5f, ScreenMessageStyle.UPPER_LEFT);
+                MonoBehaviour.print("Wheel broke from overstressing! load: " + load + " max: " + maxSafeLoad + " speed: " + speed + " maxSpeed: " + maxSafeSpeed);
+                ScreenMessages.PostScreenMessage(Localizer.Format("#KSPWheel_WheelBreak_Message", this.part), 5f, ScreenMessageStyle.UPPER_LEFT); // "<color=orange><b>[" + this.part + "]:</b> Broke from overstressing.</color>"
                 changeWheelState(KSPWheelState.BROKEN);
                 stressTime = 0f;
                 updateWheelMeshes(controller.wheelState);
@@ -369,10 +370,10 @@ namespace KSPWheel
                 case KSPWheelState.RETRACTING:
                 case KSPWheelState.DEPLOYED:
                 case KSPWheelState.DEPLOYING:
-                    displayStatus = "Operational";
+                    displayStatus = LocalizationCache.str_WheelStatus_Operational; // "Operational"
                     break;
                 case KSPWheelState.BROKEN:
-                    displayStatus = "Broken";
+                    displayStatus = LocalizationCache.str_WheelStatus_Broken; // "Broken"
                     break;
                 default:
                     break;

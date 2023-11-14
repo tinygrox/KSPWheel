@@ -9,8 +9,8 @@ namespace KSPWheel
     public class KSPWheelTracks : KSPWheelMotor
     {
 
-        [KSPField(guiName = "Track Length Adjust", guiActive =false, guiActiveEditor = false)
-         ,UI_FloatEdit(minValue = -100f, maxValue = 100f, incrementLarge = 5f, incrementSmall = 1f, incrementSlide = 0.1f)]
+        [KSPField(guiName = "#KSPWheel_TrackLengthAdjust", guiActive = false, guiActiveEditor = false) // Track Length Adjust
+         , UI_FloatEdit(minValue = -100f, maxValue = 100f, incrementLarge = 5f, incrementSmall = 1f, incrementSlide = 0.1f)]
         public float trackLength = 10f;
 
         [KSPField]
@@ -19,12 +19,12 @@ namespace KSPWheel
         [KSPField]
         public int smrIndex = 0;
 
-        [KSPField(guiName = "Invert Track Surface Direction", guiActive = false, guiActiveEditor = true, isPersistant = true),
-         UI_Toggle(scene = UI_Scene.Editor, controlEnabled = true, requireFullControl = false, disabledText = "Standard", enabledText = "Inverted", affectSymCounterparts = UI_Scene.None, suppressEditorShipModified = true)]
+        [KSPField(guiName = "#KSPWheel_InvertTrackSurfaceDirection", guiActive = false, guiActiveEditor = true, isPersistant = true), // Invert Track Surface Direction
+         UI_Toggle(scene = UI_Scene.Editor, controlEnabled = true, requireFullControl = false, disabledText = "#KSPWheel_InvertTrackSurfaceDirection_Standard", enabledText = "#KSPWheel_InvertTrackSurfaceDirection_Inverted", affectSymCounterparts = UI_Scene.None, suppressEditorShipModified = true)] // Standard | Inverted
         public bool invertTrackTexture = false;
 
-        [KSPField(guiName = "Display Fwd Rotation", guiActive = false, guiActiveEditor = true, isPersistant = false),
-         UI_Toggle(enabledText = "True", disabledText = "False", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
+        [KSPField(guiName = "#KSPWheel_DisplayFwdRotation", guiActive = false, guiActiveEditor = true, isPersistant = false), // Display Fwd Rotation
+         UI_Toggle(enabledText = "#KSPWheel_DisplayFwdRotation_True", disabledText = "#KSPWheel_DisplayFwdRotation_False", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)] // True | False
         public bool editorRotation = false;
 
         private float factorSum;

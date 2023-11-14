@@ -23,7 +23,7 @@ namespace KSPWheel
         [KSPField]
         public bool brakesLocked = false;
 
-        [KSPField(guiName = "Brakes Limit", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_BrakesLimit", guiActive = true, guiActiveEditor = true, isPersistant = true), //Brakes Limit
          UI_FloatRange(minValue = 0f, maxValue = 100f, stepIncrement = 0.5f, suppressEditorShipModified = true)]
         public float brakeLimit = 100f;
 
@@ -43,7 +43,7 @@ namespace KSPWheel
             });
         }
 
-        [KSPAction(actionGroup = KSPActionGroup.Brakes, guiName = "Brakes")]
+        [KSPAction(actionGroup = KSPActionGroup.Brakes, guiName = "#KSPWheel_Brakes")] // Brakes
         public void brakesAction(KSPActionParam p)
         {
             //NOOP - blank method stub to get an AG action to show up in the AG list...
@@ -63,7 +63,7 @@ namespace KSPWheel
 
         internal override string getModuleInfo()
         {
-            return "Brake Torque: " + maxBrakeTorque;
+            return LocalizationCache.str_ModuleInfo_BrakeTorque + " " + maxBrakeTorque; // Brake Torque:
         }
 
         internal override void onUIControlsUpdated(bool show)

@@ -9,15 +9,15 @@ namespace KSPWheel
     public class KSPWheelRepulsor : KSPWheelSubmodule
     {
 
-        [KSPField(guiName = "Repulsor Height", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_RepulsorHeight", guiActive = true, guiActiveEditor = true, isPersistant = true), // Repulsor Height
          UI_FloatRange(minValue = 0.1f, maxValue = 1, stepIncrement = 0.01f, suppressEditorShipModified = true)]
         public float repulsorHeight = 1f;
 
-        [KSPField(guiName = "Repuslor Power", guiActiveEditor = true, guiActive = true, isPersistant = true),
-         UI_Toggle(enabledText ="On", disabledText ="Off", suppressEditorShipModified = true)]
+        [KSPField(guiName = "#KSPWheel_RepuslorPower", guiActiveEditor = true, guiActive = true, isPersistant = true), // Repuslor Power
+         UI_Toggle(enabledText = "#KSPWheel_RepuslorPower_On", disabledText = "#KSPWheel_RepuslorPower_Off", suppressEditorShipModified = true)] // OnOff
         public bool repulsorEnabled = true;
 
-        [KSPField(guiName = "Energy Use", guiActive = true, guiUnits = "EC/s")]
+        [KSPField(guiName = "#KSPWheel_EnergyUse", guiActive = true, guiUnits = "EC/s")] // Energy Use
         public float guiEnergyUse = 0f;
 
         [KSPField]
@@ -56,7 +56,7 @@ namespace KSPWheel
 
         private void repulsorToggled(BaseField field, System.Object obj)
         {
-            this.wheelGroupUpdate(int.Parse(controller.wheelGroup), m => 
+            this.wheelGroupUpdate(int.Parse(controller.wheelGroup), m =>
             {
                 m.setRepulsorEnabled(repulsorEnabled);
                 if (m.repulsorEnabled)
@@ -76,7 +76,7 @@ namespace KSPWheel
             });
         }
 
-        [KSPAction(guiName = "Toggle Repulsor Power")]
+        [KSPAction(guiName = "#KSPWheel_Action_ToggleRepulsorPower")] // Toggle Repulsor Power
         public void repuslorPowerAction(KSPActionParam p)
         {
             setRepulsorEnabled(!repulsorEnabled);
@@ -87,31 +87,31 @@ namespace KSPWheel
             }
         }
 
-        [KSPAction(guiName = "Repulsor Power 20%")]
+        [KSPAction(guiName = "#KSPWheel_Action_ToggleRepulsorPower20")] // Repulsor Power 20%
         public void repuslorHeight20Action(KSPActionParam p)
         {
             repulsorHeight = 0.20f;
         }
 
-        [KSPAction(guiName = "Repulsor Power 40%")]
+        [KSPAction(guiName = "#KSPWheel_Action_ToggleRepulsorPower40")] // Repulsor Power 40%
         public void repuslorHeight40Action(KSPActionParam p)
         {
             repulsorHeight = 0.40f;
         }
 
-        [KSPAction(guiName = "Repulsor Power 60%")]
+        [KSPAction(guiName = "#KSPWheel_Action_ToggleRepulsorPower60")] // Repulsor Power 60%
         public void repuslorHeight60Action(KSPActionParam p)
         {
             repulsorHeight = 0.60f;
         }
 
-        [KSPAction(guiName = "Repulsor Power 80%")]
+        [KSPAction(guiName = "#KSPWheel_Action_ToggleRepulsorPower80")] // Repulsor Power 80%
         public void repuslorHeight80Action(KSPActionParam p)
         {
             repulsorHeight = 0.80f;
         }
 
-        [KSPAction(guiName = "Repulsor Power 100%")]
+        [KSPAction(guiName = "#KSPWheel_Action_ToggleRepulsorPower100")] // Repulsor Power 100%
         public void repuslorHeight100Action(KSPActionParam p)
         {
             repulsorHeight = 1.00f;

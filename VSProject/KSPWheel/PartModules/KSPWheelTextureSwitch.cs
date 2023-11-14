@@ -10,7 +10,7 @@ namespace KSPWheel.PartModules
     public class KSPWheelTextureSwitch : PartModule
     {
 
-        [KSPField(isPersistant = true, guiName = "Texture", guiActive = false, guiActiveEditor = false),
+        [KSPField(isPersistant = true, guiName = "#KSPWheel_Texture", guiActive = false, guiActiveEditor = false), // Texture
          UI_ChooseOption(suppressEditorShipModified = true)]
         public string currentTextureSet = string.Empty;
 

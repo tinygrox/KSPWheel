@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using KSP.Localization;
 
 namespace KSPWheel
 {
@@ -39,22 +40,22 @@ namespace KSPWheel
         /// <summary>
         /// User-selectable motor output limiter
         /// </summary>
-        [KSPField(guiName = "Motor Limit", guiActive = true, guiActiveEditor = true, isPersistant = true, guiUnits ="%"),
+        [KSPField(guiName = "#KSPWheel_MotorLimit", guiActive = true, guiActiveEditor = true, isPersistant = true, guiUnits = "%"), // Motor Limit
          UI_FloatRange(minValue = 0f, maxValue = 100f, stepIncrement = 0.5f)]
         public float motorOutput = 100f;
 
         /// <summary>
         /// If true, motor response will be inverted for this wheel.  Toggleable in editor and flight.  Persistent.
         /// </summary>
-        [KSPField(guiName = "Invert Motor", guiActive = true, guiActiveEditor = true, isPersistant = true),
-         UI_Toggle(enabledText = "Inverted", disabledText = "Normal", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)]
+        [KSPField(guiName = "#KSPWheel_InvertMotor", guiActive = true, guiActiveEditor = true, isPersistant = true), // Invert Motor
+         UI_Toggle(enabledText = "#autoLOC_6001077", disabledText = "#autoLOC_6001075", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)] // Inverted|Normal
         public bool invertMotor;
 
         /// <summary>
         /// If true, motor response will be inverted for this wheel.  Toggleable in editor and flight.  Persistent.
         /// </summary>
-        [KSPField(guiName = "Motor Lock", guiActive = true, guiActiveEditor = true, isPersistant = true),
-         UI_Toggle(enabledText = "Locked", disabledText = "Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)]
+        [KSPField(guiName = "#KSPWheel_MotorLock", guiActive = true, guiActiveEditor = true, isPersistant = true), // Motor Lock
+         UI_Toggle(enabledText = "#KSPWheel_MotorLock_Locked", disabledText = "#KSPWheel_MotorLock_Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.Editor)] // Locked | Free
         public bool motorLocked;
 
         /// <summary>
@@ -63,19 +64,19 @@ namespace KSPWheel
         [KSPField]
         public bool tankSteering = false;
 
-        [KSPField(guiName = "Tank Steer Invert", guiActive = false, guiActiveEditor = false, isPersistant = true),
-         UI_Toggle(enabledText = "Inverted", disabledText = "Normal", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)]
+        [KSPField(guiName = "#KSPWheel_TankSteerInvert", guiActive = false, guiActiveEditor = false, isPersistant = true), // Tank Steer Invert
+         UI_Toggle(enabledText = "#autoLOC_6001077", disabledText = "#autoLOC_6001075", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)] // Inverted | Normal
         public bool invertSteering = false;
 
-        [KSPField(guiName = "Tank Steer Lock", guiActive = false, guiActiveEditor = false, isPersistant = true),
-         UI_Toggle(enabledText = "Locked", disabledText = "Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)]
+        [KSPField(guiName = "#KSPWheel_TankSteerLock", guiActive = false, guiActiveEditor = false, isPersistant = true), // Tank Steer Lock
+         UI_Toggle(enabledText = "#KSPWheel_TankSteerLock_Locked", disabledText = "#KSPWheel_TankSteerLock_Free", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)] // Locked | Free
         public bool steeringLocked = false;
 
-        [KSPField(guiName = "Half-Track", guiActive = false, guiActiveEditor = false, isPersistant = true),
-         UI_Toggle(enabledText = "Enabled", disabledText = "Disabled", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)]
+        [KSPField(guiName = "#KSPWheel_HalfTrackSteering", guiActive = false, guiActiveEditor = false, isPersistant = true), // Half-Track
+         UI_Toggle(enabledText = "#KSPWheel_HalfTrackSteering_Enabled", disabledText = "#KSPWheel_HalfTrackSteering_Disabled", suppressEditorShipModified = true, affectSymCounterparts = UI_Scene.None)] // Enabled | Disabled
         public bool halfTrackSteering = false;
 
-        [KSPField(guiName = "Gear Ratio (x:1)", guiActive = true, guiActiveEditor = true, isPersistant = true),
+        [KSPField(guiName = "#KSPWheel_GearRatio", guiActive = true, guiActiveEditor = true, isPersistant = true), // Gear Ratio (x:1)
          UI_FloatEdit(suppressEditorShipModified = true, minValue = 0.25f, maxValue = 20f, incrementSlide = 0.05f, incrementLarge = 1f, incrementSmall = 0.25f, sigFigs = 2)]
         public float gearRatio = 4f;
 
@@ -88,25 +89,25 @@ namespace KSPWheel
         /// <summary>
         /// GUI display values below here
         /// </summary>
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "Max Drive Speed", guiUnits = "m/s")]
+        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "#KSPWheel_MaxDriveSpeed", guiUnits = "m/s")] // Max Drive Speed
         public float maxDrivenSpeed = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "Motor RPM")]
+        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "#KSPWheel_MotorRPM")] // Motor RPM
         public float motorCurRPM = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "Torque To Wheel", guiUnits = "kN/M")]
+        [KSPField(guiActive = true, guiActiveEditor = false, guiName = "#KSPWheel_TorqueToWheel", guiUnits = "kN/M")] // Torque To Wheel
         public float torqueOut = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "Mech. Output", guiUnits = "kW")]
+        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "#KSPWheel_PowerOutKW", guiUnits = "kW")] // Mech. Output
         public float powerOutKW = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "Elec. Input", guiUnits = "kW")]
+        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "#KSPWheel_powerInKW", guiUnits = "kW")] // Elec. Input
         public float powerInKW = 0f;
 
-        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "Efficiency", guiUnits = "%")]
+        [KSPField(guiActive = true, guiActiveEditor = true, guiName = "#KSPWheel_powerEff", guiUnits = "%")] // Efficiency
         public float powerEff = 0f;
 
-        [KSPField(guiActive = true, guiName = "Motor EC Use", guiUnits = "ec/s")]
+        [KSPField(guiActive = true, guiName = "#KSPWheel_guiResourceUse", guiUnits = "ec/s")] // Motor EC Use
         public float guiResourceUse = 0f;
 
         [KSPField]
@@ -124,7 +125,7 @@ namespace KSPWheel
         [KSPField]
         public FloatCurve torqueCurve = new FloatCurve();
 
-        [KSPField(guiName = "Max EC/s")]
+        [KSPField(guiName = "#KSPWheel_maxECDraw")] // Max EC/s
         public float maxECDraw = 0f;
 
         [KSPField]
@@ -219,25 +220,25 @@ namespace KSPWheel
             });
         }
 
-        [KSPAction("Lock Motor")]
+        [KSPAction("#KSPWheel_Action_LockMotor")] // Lock Motor
         public void motorLockAction(KSPActionParam param)
         {
             motorLocked = !motorLocked;
         }
 
-        [KSPAction("Invert Motor")]
+        [KSPAction("#KSPWheel_Action_InvertMotor")] // Invert Motor
         public void motorInvertAction(KSPActionParam param)
         {
             invertMotor = !invertMotor;
         }
 
-        [KSPAction("Lock Steering")]
+        [KSPAction("#KSPWheel_Action_LockSteering")] // Lock Steering
         public void steeringLockAction(KSPActionParam param)
         {
             steeringLocked = !steeringLocked;
         }
 
-        [KSPAction("Invert Steering")]
+        [KSPAction("#KSPWheel_Action_InvertSteering")] // Invert Steering
         public void steeringInvertAction(KSPActionParam param)
         {
             invertSteering = !invertSteering;
@@ -292,10 +293,10 @@ namespace KSPWheel
 
         internal override string getModuleInfo()
         {
-            string val = "Motor Torque: " + maxMotorTorque + "\n" + "Motor Max RPM: " + maxRPM + "\n" + "Motor Efficiency: "+motorEfficiency;
+            string val = Localizer.Format("#KSPWheel_WheelMotorModuleInfo", maxMotorTorque, maxRPM, motorEfficiency); // "Motor Torque: " + maxMotorTorque + "\n" + "Motor Max RPM: " + maxRPM + "\n" + "Motor Efficiency: " + motorEfficiency;
             if (tankSteering)
             {
-                val = val + "\n" + "Tank Steering Enabled";
+                val = val + "\n" + LocalizationCache.str_TankSteeringEnabled; // "Tank Steering Enabled"
             }
             return val;
         }
