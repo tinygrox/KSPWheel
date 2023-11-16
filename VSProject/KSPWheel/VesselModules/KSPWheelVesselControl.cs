@@ -137,7 +137,7 @@ namespace KSPWheel
                 steering.invertSteering = !steering.invertSteering;
                 steering.onSteeringInverted(null, null);
             }
-            if (GUILayout.Button("Lock: " + steering.steeringLocked)) // 
+            if (GUILayout.Button(Localizer.Format("#KSPWheel_GUI_Lock", steering.steeringLocked))) // "Lock: " + steering.steeringLocked
             {
                 steering.steeringLocked = !steering.steeringLocked;
                 steering.onSteeringLocked(null, null);
